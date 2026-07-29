@@ -1,4 +1,4 @@
-package Ej2;
+package Eje2;
 
 /*¿Qué es un iterador? (iterator). 
 Muestre cómo se usa, haciendo altas, bajas, recorridos y búsquedas en listas implementadas con ArrayList.*/
