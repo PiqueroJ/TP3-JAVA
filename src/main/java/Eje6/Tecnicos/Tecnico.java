@@ -30,5 +30,10 @@ public class Tecnico extends Libro implements Serializable{
         return categoria;
     }
     
+    @Override
+    public String toString() {
+    return super.toString() + "Tipo: Técnico\nCategoría: " + categoria + "\n";
+    }
+    
     
 }

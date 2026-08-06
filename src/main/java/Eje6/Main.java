@@ -1,6 +1,7 @@
 package Eje6;
 
 import java.util.ArrayList;
+import java.util.List;
 
 /*Se desea diseñar un programa que registre, y persista en archivos, libros (técnicos y novelas) para una librería y permita buscarlos, venderlos y verificar su stock.
 
@@ -14,9 +15,43 @@ Al venderse un libro, el stock se actualiza. Si un cliente requiere un libro cuy
 
 public class Main {
     public static void main(String[] args){
-        ArrayList<Editorial> editoriales = new ArrayList<Editorial>();
-        ArrayList<Proveedor> proveedores = new ArrayList<Proveedor>();
+        Editorial planeta = new Editorial("Planeta");
+        Editorial sudamericana = new Editorial("Sudamericana");
+        Editorial pearson = new Editorial("Pearson");
+        Editorial oceano = new Editorial("Océano");
         
+        List<Proveedor> proveedores = new ArrayList<>();
+
+        proveedores.add(new Proveedor(
+                "Distribuidora Norte",
+                new ArrayList<>(List.of(planeta, sudamericana))
+        ));
+
+        proveedores.add(new Proveedor(
+                "Distribuidora Sur",
+                new ArrayList<>(List.of(pearson))
+        ));
+
+        proveedores.add(new Proveedor(
+                "Editorial Directa",
+                new ArrayList<>(List.of(oceano))
+        ));
+        
+        // ---- Listas iniciales (vacías, se cargan desde archivo o por teclado) ----
+        List<Libro> libros = new ArrayList<>();
+        List<Cliente> clientes = new ArrayList<>();
+
+        // ---- Se crea la librería ----
+        Libreria libreria = new Libreria(libros, clientes, proveedores);
+
+        // ---- Se intenta recuperar el catálogo guardado previamente ----
+        libreria.cargarLibros();
+
+        // ---- Arranca el menú ----
+        libreria.menu();
+
+        // ---- Al salir del menú, se guarda el estado actual ----
+        libreria.guardarLibros();
         
     }
 }

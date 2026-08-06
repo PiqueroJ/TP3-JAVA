@@ -97,19 +97,24 @@ public abstract class Libro implements Serializable{
         stock += cantidad;
     }
 
-   public void mostrarLibro(){
-       System.out.println(titulo + "\n");
-       for(Autor a: autores){
-           System.out.println(a + "\n");
-       }
-       System.out.println("Editorial: " + editorial.getNombre() + "\n");
-       System.out.println("Anio de publicacion: " + anioEdicion + "\n");
-       System.out.println("ISBN: " + codigoISBN + "\n");
-       System.out.println("Formato: " + formato + "\n");
-       System.out.println("Stock: " + stock + "\n");
-       System.out.println("Capitulos: " + capitulos.size() + "\n");
-       
-   }
+@Override
+public String toString() {
+    StringBuilder sb = new StringBuilder();
+    sb.append("Título: ").append(titulo).append("\n");
+    sb.append("Autores: ");
+    for (Autor a : autores) {
+        sb.append(a.getNombre()).append(" ");
+    }
+    sb.append("\n");
+    sb.append("Editorial: ").append(editorial.getNombre()).append("\n");
+    sb.append("Año de edición: ").append(anioEdicion).append("\n");
+    sb.append("ISBN: ").append(codigoISBN).append("\n");
+    sb.append("Formato: ").append(formato).append("\n");
+    sb.append("Stock: ").append(stock).append("\n");
+    sb.append("Capítulos: ").append(capitulos.size()).append("\n");
+    return sb.toString();
+}
+
     
     
     

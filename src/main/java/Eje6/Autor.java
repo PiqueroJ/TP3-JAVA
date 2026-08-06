@@ -15,6 +15,9 @@ public class Autor implements Serializable{
         
         this.nombre = nombre;
     }
-    
-    
+
+    public String getNombre() {
+        return nombre;
+    }
+      
 }

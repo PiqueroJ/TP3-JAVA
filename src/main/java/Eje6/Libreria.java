@@ -21,6 +21,7 @@ public class Libreria {
     private List<Libro> libros;
     private List<Cliente> clientes;
     private List<Proveedor> proveedores;
+    private Scanner teclado;
     
     private static final String ARCHIVO_LIBROS = "libros.dat";
 
@@ -47,7 +48,6 @@ public class Libreria {
     
     
     public void agregarLibro() {
-    Scanner teclado = new Scanner(System.in);
     try {
         System.out.println("Ingrese el título del libro: ");
         String titulo = teclado.nextLine();
@@ -109,9 +109,7 @@ public class Libreria {
     }
 }
     
-     public void venderLibro(){
-         Scanner teclado = new Scanner(System.in);
-             
+     public void venderLibro(){          
              System.out.println("Ingrese el codigo ISBN del libro que se vendio: ");
              String isbnV = teclado.nextLine();
              
@@ -242,17 +240,28 @@ public class Libreria {
     }
     
     public void verStock(){
-        Scanner teclado = new Scanner(System.in);
         System.out.println("Ingrese el ISBN del libro buscado: ");
         String isbn = teclado.nextLine();
         Libro buscado = buscarLibro(isbn);
+        if(buscado != null){
+            System.out.println("No se encontro un libro con ese codigo");
+        }else{
         int stock = buscado.getStock();
         System.out.println("El stock del libro: " + stock);
+        }
+        
     }
+    
+    public void mostrarLibro(Libro libro){
+        System.out.println(libro);
+   }
 
     public void menu(){
-        Scanner teclado = new Scanner(System.in);
         int menuL = 0;
+        
+        System.out.println("Ingrese el nombre de usuario: ");
+        String nom = teclado.nextLine();
+        
         do{
             try{
                 System.out.println("===== Menu Libro =====");
@@ -277,7 +286,11 @@ public class Libreria {
                         System.out.println("Ingrese el ISBN del libro buscado: ");
                         String isbn = teclado.nextLine();
                         Libro buscado = buscarLibro(isbn);
-                        buscado.mostrarLibro();
+                        if(buscado == null){
+                            System.out.println("No se encontro un libro con ese ISBN");
+                        }else{
+                           mostrarLibro(buscado);
+                        } 
                     }
                     case 3 ->
                         venderLibro();
@@ -287,17 +300,13 @@ public class Libreria {
                         guardarLibros();
                     case 6 ->
                         cargarLibros();
-
-                }
-                
+                }        
             }catch (InputMismatchException e) {
                 System.out.println("Error: Tipo de dato incorrecto (Ingresó letras o formato numérico inválido).");
             }
             teclado.nextLine();
         }while(menuL != 7);
         
-        
     }
-    
-    
+      
 }

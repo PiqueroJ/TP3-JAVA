@@ -30,5 +30,9 @@ public class Novela extends Libro implements Serializable{
         return categoria;
     }
     
+    @Override
+    public String toString() {
+    return super.toString() + "Tipo: Novela\nCategoría: " + categoria + "\n";
+    }
     
 }
