@@ -21,7 +21,6 @@ public class Libreria {
     private List<Libro> libros;
     private List<Cliente> clientes;
     private List<Proveedor> proveedores;
-    private Scanner teclado;
     
     private static final String ARCHIVO_LIBROS = "libros.dat";
 
@@ -48,6 +47,7 @@ public class Libreria {
     
     
     public void agregarLibro() {
+        Scanner teclado = new Scanner(System.in);
     try {
         System.out.println("Ingrese el título del libro: ");
         String titulo = teclado.nextLine();
@@ -109,7 +109,8 @@ public class Libreria {
     }
 }
     
-     public void venderLibro(){          
+     public void venderLibro(){      
+             Scanner teclado = new Scanner(System.in);
              System.out.println("Ingrese el codigo ISBN del libro que se vendio: ");
              String isbnV = teclado.nextLine();
              
@@ -240,10 +241,11 @@ public class Libreria {
     }
     
     public void verStock(){
+        Scanner teclado = new Scanner(System.in);
         System.out.println("Ingrese el ISBN del libro buscado: ");
         String isbn = teclado.nextLine();
         Libro buscado = buscarLibro(isbn);
-        if(buscado != null){
+        if(buscado == null){
             System.out.println("No se encontro un libro con ese codigo");
         }else{
         int stock = buscado.getStock();
@@ -257,10 +259,8 @@ public class Libreria {
    }
 
     public void menu(){
+        Scanner teclado = new Scanner(System.in);
         int menuL = 0;
-        
-        System.out.println("Ingrese el nombre de usuario: ");
-        String nom = teclado.nextLine();
         
         do{
             try{
@@ -273,7 +273,7 @@ public class Libreria {
                 System.out.println("6. Recuperar Libros (Deserialización)");
                 System.out.println("7. Salir");
                 System.out.print("Opción: ");
-                menuL = teclado.nextInt();
+                menuL = Integer.parseInt(teclado.nextLine());
                 
                 if (menuL < 1 || menuL > 7) {
                 System.out.println("El numero ingresado es invalido");
