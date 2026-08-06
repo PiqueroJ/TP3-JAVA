@@ -5,10 +5,12 @@ import Eje6.Capitulo;
 import Eje6.Editorial;
 import Eje6.Formato;
 import Eje6.Libro;
+import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.List;
 
-public class Novela extends Libro {
+public class Novela extends Libro implements Serializable{
+    private static final long serialVersionUID = 1L;
 
     private CategoriaNovela categoria;
 
@@ -27,4 +29,6 @@ public class Novela extends Libro {
     public CategoriaNovela getCategoria() {
         return categoria;
     }
+    
+    
 }

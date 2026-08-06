@@ -1,9 +1,11 @@
 package Eje6;
 
+import java.io.Serializable;
 import java.time.Year;
 import java.util.List;
 
-public abstract class Libro {
+public abstract class Libro implements Serializable{
+    private static final long serialVersionUID = 1L;
 
     private String titulo;
     private List<Autor> autores;
@@ -94,5 +96,21 @@ public abstract class Libro {
         }
         stock += cantidad;
     }
+
+   public void mostrarLibro(){
+       System.out.println(titulo + "\n");
+       for(Autor a: autores){
+           System.out.println(a + "\n");
+       }
+       System.out.println("Editorial: " + editorial.getNombre() + "\n");
+       System.out.println("Anio de publicacion: " + anioEdicion + "\n");
+       System.out.println("ISBN: " + codigoISBN + "\n");
+       System.out.println("Formato: " + formato + "\n");
+       System.out.println("Stock: " + stock + "\n");
+       System.out.println("Capitulos: " + capitulos.size() + "\n");
+       
+   }
+    
+    
     
 }

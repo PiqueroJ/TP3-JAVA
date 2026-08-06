@@ -5,10 +5,12 @@ import Eje6.Capitulo;
 import Eje6.Editorial;
 import Eje6.Formato;
 import Eje6.Libro;
+import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.List;
 
-public class Tecnico extends Libro {
+public class Tecnico extends Libro implements Serializable{
+    private static final long serialVersionUID = 1L;
 
     private CategoriaTecnico categoria;
 
@@ -27,4 +29,6 @@ public class Tecnico extends Libro {
     public CategoriaTecnico getCategoria() {
         return categoria;
     }
+    
+    
 }

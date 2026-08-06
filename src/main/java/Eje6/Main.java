@@ -1,5 +1,7 @@
 package Eje6;
 
+import java.util.ArrayList;
+
 /*Se desea diseñar un programa que registre, y persista en archivos, libros (técnicos y novelas) para una librería y permita buscarlos, venderlos y verificar su stock.
 
 Las novelas se clasifican como de ciencia ficción, romance, misterio, juveniles y policiales. Los libros técnicos se clasifican como de ingeniería, ciencias naturales o ciencias sociales.
@@ -12,6 +14,9 @@ Al venderse un libro, el stock se actualiza. Si un cliente requiere un libro cuy
 
 public class Main {
     public static void main(String[] args){
+        ArrayList<Editorial> editoriales = new ArrayList<Editorial>();
+        ArrayList<Proveedor> proveedores = new ArrayList<Proveedor>();
+        
         
     }
 }

@@ -1,7 +1,10 @@
 package Eje6;
 
+import java.io.Serializable;
 
-public class Autor {
+
+public class Autor implements Serializable{
+    private static final long serialVersionUID = 1L;
     
     private String nombre;
 
