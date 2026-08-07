@@ -1,5 +1,6 @@
 package Eje4;
 
+import java.io.File;
 import java.io.FileInputStream;
 import java.io.FileOutputStream;
 import java.io.IOException;
@@ -7,14 +8,17 @@ import java.io.ObjectInputStream;
 import java.io.ObjectOutputStream;
 import java.util.ArrayList;
 import java.util.InputMismatchException;
+import java.util.List;
 import java.util.Scanner;
 
 public class Agenda {
+    
+    private static final String ARCHIVO_AGENDA = "agenda.dat";
 
-    private ArrayList<Cita> citas;
+    private List<Persona> personas;
 
     public Agenda() {
-        this.citas = new ArrayList();
+        this.personas = new ArrayList();
     }
     
     public void menu(){
@@ -41,11 +45,11 @@ public class Agenda {
                  switch (menu){
                      case 1 -> registrar();
                      case 2 -> eliminar();
-                     case 3 -> {Cita buscada = buscar();
-                               buscada.mostrarCita();}
+                     case 3 -> {Persona buscada = buscar();
+                               buscada.mostrarPersona();}
                      case 4 -> mostrar();
-                     case 5 -> guardarRegistros();
-                     case 6 -> recuperarRegistros();
+                     case 5 -> guardarPersona();
+                     case 6 -> cargarPersona();
                  }
                 
             }catch (InputMismatchException e) {
@@ -56,20 +60,21 @@ public class Agenda {
     }
     
     public void registrar(){
-        Cita cita = new Cita();
-        citas.add(cita);
+        Scanner teclado = new Scanner(System.in);
+        Persona per = IngresoPersona.leer(teclado);
+        personas.add(per);
     }
     
     private void eliminar(){
-        Cita buscada = buscar();
+        Persona buscada = buscar();
         if(buscada != null){
-            citas.remove(buscada);
+            personas.remove(buscada);
         }
     }
     
-    public Cita buscar(){
+    public Persona buscar(){
         Scanner teclado = new Scanner(System.in);
-        Cita buscada = null;
+        Persona buscada = null;
         int num = -1;
         
         do{
@@ -85,65 +90,46 @@ public class Agenda {
             teclado.nextLine();
         }while (num < 1);
         
-        if(citas.get(num-1) == null){
+        if(personas.get(num-1) == null){
             System.out.println("No existe");
         }else{
-            buscada = citas.get(num-1);
-            buscada.mostrarCita();
+            buscada = personas.get(num-1);
+            buscada.mostrarPersona();
         }
         return buscada;
     }
     
     public void mostrar(){
-        for(Cita ci : citas){
-            ci.mostrarCita();
+        for(Persona pe : personas){
+            pe.mostrarPersona();
             System.out.println("");
         }
     }
     
-    //Serializacion
-    public void guardarRegistros(){
-        ObjectOutputStream ost = null;
-         try {
-            FileOutputStream f = new FileOutputStream("src/main/resources/citas.dat");
-            ost = new ObjectOutputStream(f);
-            ost.writeObject(citas);
-            ost.flush();
-        } catch (IOException e) {
-            System.err.println(e);
-        } finally {
-            if (ost != null) {
-                try {
-                    ost.close();
-                } catch (IOException e) {
-                    System.err.println(e);
-                }
-            }
-        }
-    }
     
-    //Deserializacion
-    public void recuperarRegistros(){
-        ObjectInputStream ist = null;
-        try {
-            FileInputStream f = new FileInputStream("src/main/resources/citas.dat");
-            ist = new ObjectInputStream(f);
-            citas = (ArrayList<Cita>) ist.readObject();
-            System.out.println(citas);
-        } catch (IOException e) {
-            System.err.println(e);
-        } catch (ClassNotFoundException e) {
-            System.err.println(e);
-        } finally {
-            if (ist != null) {
-                try {
-                    ist.close();
-                } catch (IOException e) {
-                    System.err.println(e);
-                }
-            }
-        }
+     public void guardarPersona() {
+    try (ObjectOutputStream oos = new ObjectOutputStream(new FileOutputStream(ARCHIVO_AGENDA))) {
+        oos.writeObject(personas);
+        System.out.println("Personas guardada correctamente.");
+    } catch (IOException e) {
+        System.out.println("Error al guardar las personas: " + e.getMessage());
     }
+}
+
+@SuppressWarnings("unchecked")
+    public void cargarPersona() {
+    File archivo = new File(ARCHIVO_AGENDA);
+    if (!archivo.exists()) {
+        System.out.println("No existe un archivo de agenda previo. Se inicia con catálogo vacío.");
+        return;
+    }
+    try (ObjectInputStream ois = new ObjectInputStream(new FileInputStream(archivo))) {
+        personas = (List<Persona>) ois.readObject();
+        System.out.println("Personas cargadas correctamente.");
+    } catch (IOException | ClassNotFoundException e) {
+        System.out.println("Error al cargar las personas: " + e.getMessage());
+    }
+}
     
     
     }

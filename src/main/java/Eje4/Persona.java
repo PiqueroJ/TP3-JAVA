@@ -1,9 +1,10 @@
 package Eje4;
 
 import java.util.Scanner;
+import java.io.Serializable;
 
-
-public class Persona {
+public class Persona implements Serializable{
+    private static final long serialVersionUID = 1L;
     
     private String nombre;
     private String apellido;
@@ -14,6 +15,27 @@ public class Persona {
     private String conexion;
 
     public Persona(String nombre, String apellido, String telefonoLinea, String telefonoMovil, String telefonoTrabajo, String email, String conexion) {
+        
+         if (nombre == null || nombre.isBlank()) {
+            throw new IllegalArgumentException("El nombre no puede estar vacío.");
+        }
+        if (!nombre.matches("[a-zA-ZÀ-ÿ ]+")) {
+            throw new IllegalArgumentException("El nombre no puede contener números.");
+        }
+        if (apellido == null || apellido.isBlank()) {
+            throw new IllegalArgumentException("El apellido no puede estar vacío.");
+        }
+        if (!apellido.matches("[a-zA-ZÀ-ÿ ]+")) {
+            throw new IllegalArgumentException("El apellido no puede contener números.");
+        }
+        if(email == null || email.isEmpty()){
+            throw new IllegalArgumentException("El mail no puede estar vacío.");
+        }
+         if(telefonoMovil == null || telefonoMovil.isEmpty()){
+            throw new IllegalArgumentException("Hay que llenar este campo");
+        }
+        
+        
         this.nombre = nombre;
         this.apellido = apellido;
         this.telefonoLinea = telefonoLinea;
@@ -21,54 +43,7 @@ public class Persona {
         this.telefonoTrabajo = telefonoTrabajo;
         this.email = email;
         this.conexion = conexion;
-    }
-    
-    public Persona(){
-      Scanner teclado = new Scanner(System.in);
-      
-        System.out.println("Ingrese el nombre: ");
-        String nom = teclado.nextLine();
-        if(nom == null || nom.isEmpty()){
-            throw new IllegalArgumentException("El nombre no puede estar vacío.");
-        }
-        if(!nom.matches("[a-zA-Z ]+")){
-            throw new IllegalArgumentException("El nombre no puede contener números.");
-        }
-        this.nombre = nom;
-        
-        System.out.println("Ingrese el apellido: ");
-        String ape = teclado.nextLine();
-        if(ape == null || ape.isEmpty()){
-            throw new IllegalArgumentException("El apellido no puede estar vacío.");
-        }
-        if(!ape.matches("[a-zA-Z ]+")){
-            throw new IllegalArgumentException("El apellido no puede contener números.");
-        }
-        this.apellido = ape;
-        
-        System.out.println("Ingrese el telefono de linea: ");
-        this.telefonoLinea = teclado.nextLine();
-        
-        System.out.println("Ingrese el telefono movil: ");
-        String tel = teclado.nextLine();
-        if(tel == null || tel.isEmpty()){
-            throw new IllegalArgumentException("Hay que llenar este campo");
-        }
-        
-        System.out.println("Ingrese el telefono de trabajo: ");
-        this.telefonoTrabajo = teclado.nextLine();
-        
-        System.out.println("Ingrese el mail: ");
-        String mailS = teclado.nextLine();
-        if(mailS == null || mailS.isEmpty()){
-            throw new IllegalArgumentException("El mail no puede estar vacío.");
-        }
-        
-        System.out.println("De donde conoce a la persona: ");
-        this.conexion = teclado.nextLine();
-        
-    }
-         
+    }    
 
     public String getNombre() {
         return nombre;
