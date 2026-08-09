@@ -235,9 +235,24 @@ public class Libreria {
     
     public void agregarCliente(){
         Scanner teclado = new Scanner(System.in);
-        System.out.println("Ingrese el nombre de Usuario: ");
-        String nom = teclado.nextLine();
-        clientes.add(new Cliente(nom));
+        int res = 0;
+        do{
+            try{
+            System.out.println("Quiere ingresar cliente[0: NO | 1: SI]: ");
+            res = Integer.parseInt(teclado.nextLine());
+            if(res < 0 || res > 1){
+                throw new IllegalArgumentException("Opcion invalida");
+            }
+            if(res == 1){
+                System.out.println("Ingrese el nombre de Usuario: ");
+                String nom = teclado.nextLine();
+                clientes.add(new Cliente(nom));
+            }
+            }catch (IllegalArgumentException e) {
+        System.out.println("Error: " + e.getMessage() + ". Intente de nuevo.");
+         }
+        }while(res != 0);
+        
     }
     
     public void verStock(){

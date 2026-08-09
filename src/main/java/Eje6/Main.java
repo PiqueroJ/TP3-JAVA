@@ -37,20 +37,23 @@ public class Main {
                 new ArrayList<>(List.of(oceano))
         ));
         
-        // ---- Listas iniciales (vacías, se cargan desde archivo o por teclado) ----
+        //Listas iniciales vacias
         List<Libro> libros = new ArrayList<>();
         List<Cliente> clientes = new ArrayList<>();
 
-        // ---- Se crea la librería ----
+        //Creo la libreria
         Libreria libreria = new Libreria(libros, clientes, proveedores);
 
-        // ---- Se intenta recuperar el catálogo guardado previamente ----
+        //Deserializacion
         libreria.cargarLibros();
-
-        // ---- Arranca el menú ----
+       
+        //Clientes
+        libreria.agregarCliente();
+        
+        //Menu Libro
         libreria.menu();
 
-        // ---- Al salir del menú, se guarda el estado actual ----
+        //Serializacion
         libreria.guardarLibros();
         
     }
